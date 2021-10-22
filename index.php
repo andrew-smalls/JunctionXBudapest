@@ -65,12 +65,20 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
+      <?php
+
+        $view=new View();
+        $users=$view->getUsers();
+
+        for($i=0;$i<count($users);$i=$i+1){
+            print '<tr>
+                <th scope="row">1</th>
+                    <td>'.$users[$i]['first_name'].'</td>
+                    <td>'.$users[$i]['email'].'</td>
+                    <td></td>
+                </tr>';
+        }
+    ?>
   </tbody>
 </table>
 </div>

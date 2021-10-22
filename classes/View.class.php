@@ -1,7 +1,7 @@
 <?php
 
 class View extends Model{
-    protected function get_user(){
-        return $this->getUser();
+    protected function get_users(){
+        return $this->getUsers();
     }
 }

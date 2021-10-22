@@ -10,7 +10,14 @@ if(isset($_POST['addUser'])){
     $email=$_POST['email'];
 
     $controller=new Controller();
-    $controller->addUser($first_name,$email);
+    if($controller->addUser($first_name,$email)){
+        header("Location: ../add_user.php?uid=".$first_name."");
+	    exit();
+    }
+    else{
+        header("Location: ../add_user.php?error");
+	    exit();
+    }
 
     header("Location: ../add_user.php?uid=".$first_name."");
 	exit();

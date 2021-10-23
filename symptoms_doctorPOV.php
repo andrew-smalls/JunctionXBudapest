@@ -2,81 +2,73 @@
 
 use function PHPSTORM_META\type;
 
-include 'header.html';
+ include 'header.html';
  include 'includes/autoloader.inc.php';
 ?>
 
 <body>
-<?php include 'navbar.html'; ?>
+<?php include 'navbar.php'; ?>
 
-<div class="card" style="width: 18rem;">
-  <div class="card-header"> Patient info
-  </div>
   <?php
 
   $view=new View();
   $symptoms=$view->getSymptoms('andrei');
 
-  for($i=0;$i<count($symptoms);$i=$i+1){
-  print '
-  <ul class="list-group list-group-flush">
-  <li class="list-group-item"> Patient name: ' .$symptoms[$i]['patientName'].'</li>
-  <li class="list-group-item">Recovering from: ' .$symptoms[$i]['previousIlness'].'</li>
-  <li class="list-group-item">Surgery date: ' .$symptoms[$i]['surgeryDate'].'</li>
-  <li class="list-group-item">Treatment Summary: ' .$symptoms[$i]['treatmentSummary'].'</li>
-      
-  </ul>';
-  }
+  
       ?>
       
 </div>
-<div class='roundTreatmentSummary'>
-    <p href="..."> See patient ASCO Treatment Summary and Survivorship Care plan</p>
-</div>  
-
-<div class="card" style="width: 18rem;">
-  <div class="card-header"> Suggested research papers: 
+  <div class="row" style="margin-bottom: 40px;">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8" style="text-align: center;">
+      <h2>This symptom submission was completed by <?php print($_GET['uid']); ?></h2>
+    </div>
+    <div class="col-md-2">
+    </div>
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Link 1 </li>
-    <li class="list-group-item"> Link 2 </li>
-  </ul>
-<div class='suggestestedResearchMaterials'> Suggested research papers:
+  <div class='roundTreatmentSummary'>
+      <p href="..."> See patient ASCO Treatment Summary and Survivorship Care plan</p>
+  </div>  
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Suggested reading</th>
-      <th scope="col">Link</th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php
-        $search=new Search();
-        $keywords = 'lung cancer,throat soarness';
-        $results=$search->getResearchMaterials($keywords); //de pus keywords dinamic
-        
-        $count=1;
-        $controller=new Controller();
-        
-        foreach($results as $item){
-          $link = $item->link;
-          $essential_phrases = $controller->parse_link($link, $keywords);
+
+<div class='suggestestedResearchMaterials'> 
+  <p>Suggested research papers:</p>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Suggested reading</th>
+        <th scope="col">Link</th>
+      </tr>
+    </thead>
+    <tbody>
+        <?php
+          $search=new Search();
+          $keywords = 'lung cancer,throat soarness';
+          $results=$search->getResearchMaterials($keywords); //de pus keywords dinamic
           
-            print '<tr>
-                <th scope="row">'.($count).'</th>
-                    <td>'.$item->title.'</td>
-                    <td><a href="'.$item->link.'">'.$item->link.'</a></td>
-                    <td>'.$essential_phrases.'</td>
-                    <td></td>
-                </tr>';
-              $count=$count+1;
-              
-        }
-    ?>
-  </tbody>
-</table>
+          $count=1;
+          $controller=new Controller();
+          
+          foreach($results as $item){
+            $link = $item->link;
+            $essential_phrases = $controller->parse_link($link, $keywords);
+            
+              print '<tr>
+                  <th scope="row">'.($count).'</th>
+                      <td>'.$item->title.'</td>
+                      <td><a href="'.$item->link.'">'.$item->link.'</a></td>
+                      
+                      <td></td>
+                  </tr>';
+                $count=$count+1;
+                
+          }
+      ?>
+    </tbody>
+  </table>
 
 </div>
 

@@ -33,6 +33,20 @@
         <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
       </div>
+      <div class="mb-3" >
+        <label for="cancer_type" class="form-label" >Cancer type:</label>
+        <input name="cancer_type" type="text" class="form-control" id="cancer_type" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3" >
+        <label for="address" class="form-label" >Address:</label>
+        <input name="address" type="text" class="form-control" id="address" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3" >
+      <select class="form-select" aria-label="User type" name="type">
+        <option value="1">Patient</option>
+        <option value="2">Doctor</option>
+      </select>
+      </div>
       <button type="submit" class="btn btn-primary" name="addUser">Add</button>
     </form>
     </div>

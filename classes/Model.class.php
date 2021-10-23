@@ -90,6 +90,7 @@ class Model extends Dbh {
         
         exec("python inner/install_imports.py $url $keywords", $output);
         
-        return var_dump($output);
+        //return var_dump($output);
+        return $output;
     }
 }

@@ -31,37 +31,40 @@ use function PHPSTORM_META\type;
       <p href="..."> See patient ASCO Treatment Summary and Survivorship Care plan</p>
   </div>  
 
-
-<div class='suggestestedResearchMaterials'> 
-  <p>Suggested research papers:</p>
-
   <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Suggested reading</th>
         <th scope="col">Link</th>
+        <th scope="col">Suggestions from research papers</th>
       </tr>
     </thead>
     <tbody>
         <?php
           $search=new Search();
           $keywords = 'lung cancer,throat soarness';
-          $results=$search->getResearchMaterials($keywords); //de pus keywords dinamic
+          $results=$search->getResearchMaterials($keywords); //de pus keywords dinamic <td>'.$controller->parse_link($link, $keywords).'</td>
           
           $count=1;
           $controller=new Controller();
           
           foreach($results as $item){
             $link = $item->link;
-            $essential_phrases = $controller->parse_link($link, $keywords);
-            
-              print '<tr>
+            $content = $controller->parse_link($link, $keywords);
+              print '
+                 <tr>
                   <th scope="row">'.($count).'</th>
                       <td>'.$item->title.'</td>
                       <td><a href="'.$item->link.'">'.$item->link.'</a></td>
                       
-                      <td></td>
+                      <td>';
+                      foreach($content as $line)
+                      {
+                         echo $line;
+                         echo '\n';
+                      }
+                      print  '</td>
                   </tr>';
                 $count=$count+1;
                 
@@ -69,8 +72,6 @@ use function PHPSTORM_META\type;
       ?>
     </tbody>
   </table>
-
-</div>
 
 <div class='automatedEvaluation'>
   <button type="button" class="btn btn-info">Generate Automated Evaluation</button>

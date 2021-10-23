@@ -1,5 +1,6 @@
 <?php
 include 'autoloader.inc.php';
+include '../header.html';  
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -14,11 +15,7 @@ if(isset($_POST["submit"]))
 {
   $filename = $_FILES['fileToUpload']['name'];
   $file = $_FILES['fileToUpload']['tmp_name'];
-  $file_string = file_get_contents($_FILES['fileToUpload']['name']);
-  if(empty($file_string))
-  {
-    echo "mortii mei";
-  }
+ 
   $fileSize = $_FILES['fileToUpload']['size'];
   $fileSizeInMB = ($fileSize)/(1024*1024);
   if($fileSizeInMB > 5)
@@ -30,7 +27,7 @@ if(isset($_POST["submit"]))
   $info = pathinfo($_FILES['fileToUpload']['name']);
   $ext = $info['extension']; // get the extension of the file
   $newname = "newname.".$ext; 
-  $target = 'uploads/'.$newname;
+  $target = '../uploads/'.$newname;
   move_uploaded_file( $_FILES['fileToUpload']['tmp_name'], $target);
 }
 
@@ -48,7 +45,7 @@ if ($uploadOk == 0)
 else 
 {
       $controller=new Controller();
-      if($controller->uploadTreatmentSummary($patientName, $doctorName, $file))
+      if($controller->uploadTreatmentSummary($patientName, $doctorName, $_FILES['fileToUpload']['name']))
       {
         header("Location: ../symptoms_doctorPOV.php?uid=".$doctorName."");
         exit();

@@ -7,7 +7,7 @@ class Controller extends Model{
 
     public function uploadTreatmentSummary($patientName, $doctorName, $fileName){
         return $this->uploadTreatmentSummary($patientName, $doctorName, $fileName);
-
+    }
     protected function add_photos($image,$type,$user_id,$submission_id){
         return $this->addImage($image,$type,$user_id,$submission_id);
     }

@@ -36,6 +36,7 @@
                 <label for="textAnswer" style="margin-bottom: 15px;"; class="form-label">Add images if relevant:</label>
                 <input type="file" id="chooseFile" name="images[]" multiple/>
             </div>
+            <?php print '<input type="hidden" name="uid" value='.$_GET['uid'].'>'; ?>
             <button type="submit" class="btn btn-primary" name="addSymptoms">Submit</button>
         </form>
 

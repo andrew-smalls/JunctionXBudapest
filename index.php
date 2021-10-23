@@ -1,86 +1,113 @@
-<?php
-	include 'includes/autoloader.inc.php';
-?>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<?php
+	include 'includes/autoloader.inc.php';
+  include 'header.html';
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  $view=new View();
+  $users=$view->getUsersByType(1);
+  $submissions=$view->getSubmissions();
+?>
 
-  <title>VarianCareSystem</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-
-
-
-</head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Varian</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="patient_home.php">Home</a>
+<?php include 'navbar.php'; ?>
+<div style="margin: 20px;">
+  <div class="row">
+    <div class="col-md-12">
+       <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Patients</button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Symptom submissions</button>
         </li>
       </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Patient name</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+                <?php
+
+                  
+
+                  for($i=0;$i<count($users);$i=$i+1){
+                      print '<tr>
+                          <th scope="row">'.($i+1).'</th>
+                              <td>'.$users[$i]['first_name'].'</td>
+                              <td>'.$users[$i]['email'].'</td>
+                              <td></td>
+                          </tr>';
+                  }
+              ?>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Patient name</th>
+                  <th scope="col">Condition</th>
+                  <th scope="col">Date</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <?php
+
+                    $patient_name='';
+                    $cancer_type='';
+                    for($i=0;$i<count($submissions);$i=$i+1){
+
+                       for($j=0;$j<count($users);$j=$j+1){
+                          if($users[$j]['user_id']==$submissions[$i]['user_id']){
+                            $patient_name=$users[$j]['first_name'];
+                            $cancer_type=$users[$j]['cancer_type'];
+                          }
+                       }
+
+                      //print "Name of user for submission: ".$submissions[$i]['submission_id']." is ".$patient_name."";
+                        
+                        print '<tr>
+                            <th scope="row">'.($i+1).'</th>
+                                <td>'.$patient_name.'</td>
+                                <td>'.$cancer_type.' cancer</td>
+                                <td>'.$submissions[$i]['date'].'</td>
+                                <td>
+                                  <form action="symptoms_doctorPOV.php" method="GET" id="sub_form">
+                                      <input type="hidden" name="sid" value="'.$submissions[$i]['submission_id'].'" />
+                                      <input type="hidden" name="uid" value="'.$_GET['uid'].'" />
+                                  </form>
+                                  <button form="sub_form" type="submit" class="btn btn-primary">Check symptoms</button>
+                                </td>
+                            </tr>';
+                    }
+                ?>
+              </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+      </div>
+
     </div>
   </div>
-</nav>
-<div>
-    <a class="btn btn-primary" style="margin: 30 px;" href="add_user.php">Add new patient</a>
-</div>
-<div>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Patient name</th>
-      <th scope="col">Condition</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-      <?php
-
-        $view=new View();
-        $users=$view->getUsers();
-
-        for($i=0;$i<count($users);$i=$i+1){
-            print '<tr>
-                <th scope="row">'.($i+1).'</th>
-                    <td>'.$users[$i]['first_name'].'</td>
-                    <td>'.$users[$i]['email'].'</td>
-                    <td></td>
-                </tr>';
-        }
-    ?>
-  </tbody>
-</table>
+  
+  <div>
+  
+  </div>
+  <div>
+      <a class="btn btn-primary" style="margin: 30 px;" href="add_user.php">Add new patient</a>
+  </div>
 </div>
 </body>
 </html>

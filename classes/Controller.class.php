@@ -1,8 +1,8 @@
 <?php
 
 class Controller extends Model{
-    protected function add_user($first_name,$email){
-        return $this->addUser($first_name,$email);
+    protected function add_user($first_name,$email,$password,$type,$cancer_type,$address){
+        return $this->addUser($first_name,$email,$password,$type,$cancer_type,$address);
     }
 
     public function uploadTreatmentSummary($patientName, $doctorName, $fileName){
@@ -15,5 +15,13 @@ class Controller extends Model{
 
     protected function add_submission($user_id,$description){
         return $this->addSubmission($user_id,$description);
+    }
+
+    protected function checkLogin($email,$password){
+        return $this->confirmIdentity($email,$password);
+    }
+
+    protected function get_user_by_Id($user_id){
+        return $this->getUserById($user_id);
     }
 }

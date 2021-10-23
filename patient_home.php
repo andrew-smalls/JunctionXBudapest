@@ -20,13 +20,16 @@
 
 </head>
 <body>
-    <?php include 'navbar.html'; ?>
+    <?php include 'navbar.php'; ?>
     <div>
         <h1>Welcome!</h1>
     </div>
     <div class="d-grid gap-2">
-        <form action="add_symptoms.php" method="GET" id="submission_form"></form>
+        <form action="add_symptoms.php" method="GET" id="submission_form">
+            <input type="hidden" name="uid" value="<?php print($_GET['uid']);?>">; 
+        </form>
         <button class="btn btn-primary" form="submission_form" type="submit" style="height: 200px; margin: 100px">I have some symptoms...</button>
+        
     </div>
 
 </body>

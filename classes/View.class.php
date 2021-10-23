@@ -8,4 +8,8 @@ class View extends Model{
     protected function get_symptoms($patientName){
         return $this->getSymptoms($patientName);
     }
+
+    protected function get_submissions(){
+        return $this->getSubmissions();
+    }
 }

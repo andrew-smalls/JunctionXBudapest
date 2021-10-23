@@ -16,4 +16,9 @@ class Controller extends Model{
     protected function add_submission($user_id,$description){
         return $this->addSubmission($user_id,$description);
     }
+
+    public function parse_link($url, $keywords)
+    {
+        return $this->parseLink($url, $keywords);
+    }
 }

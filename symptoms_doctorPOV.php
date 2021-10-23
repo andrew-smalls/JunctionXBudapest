@@ -54,18 +54,25 @@ include 'header.html';
   <tbody>
       <?php
         $search=new Search();
-        $results=$search->getResearchMaterials("lung cancer throat soarnes");
-        //$string_results=file_get_contents($results);
-        //print_r($results);
+        $keywords = 'lung cancer,throat soarness';
+        $results=$search->getResearchMaterials($keywords); //de pus keywords dinamic
+        
         $count=1;
+        $controller=new Controller();
+        
         foreach($results as $item){
+          $link = $item->link;
+          $essential_phrases = $controller->parse_link($link, $keywords);
+          
             print '<tr>
                 <th scope="row">'.($count).'</th>
                     <td>'.$item->title.'</td>
                     <td><a href="'.$item->link.'">'.$item->link.'</a></td>
+                    <td>'.$essential_phrases.'</td>
                     <td></td>
                 </tr>';
               $count=$count+1;
+              
         }
     ?>
   </tbody>

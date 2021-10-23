@@ -47,4 +47,12 @@ class Model extends Dbh {
         $last_id=$results['max_id'];
         return $last_id;
     }
+
+    public function parseLink($url, $keywords)
+    {
+        
+        exec("python inner/install_imports.py $url $keywords", $output);
+        
+        return var_dump($output);
+    }
 }

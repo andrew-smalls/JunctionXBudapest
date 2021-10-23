@@ -1,5 +1,8 @@
 <?php
- include 'header.html';
+
+use function PHPSTORM_META\type;
+
+include 'header.html';
  include 'includes/autoloader.inc.php';
 ?>
 
@@ -38,6 +41,36 @@
     <li class="list-group-item">Link 1 </li>
     <li class="list-group-item"> Link 2 </li>
   </ul>
+<div class='suggestestedResearchMaterials'> Suggested research papers:
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Suggested reading</th>
+      <th scope="col">Link</th>
+    </tr>
+  </thead>
+  <tbody>
+      <?php
+        $search=new Search();
+        $results=$search->getResearchMaterials("lung cancer throat soarnes");
+        //$string_results=file_get_contents($results);
+        //print_r($results);
+        $count=1;
+        foreach($results as $item){
+            print '<tr>
+                <th scope="row">'.($count).'</th>
+                    <td>'.$item->title.'</td>
+                    <td><a href="'.$item->link.'">'.$item->link.'</a></td>
+                    <td></td>
+                </tr>';
+              $count=$count+1;
+        }
+    ?>
+  </tbody>
+</table>
+
 </div>
 
 <div class='automatedEvaluation'>

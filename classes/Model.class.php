@@ -15,7 +15,6 @@ class Model extends Dbh {
         return $results;
     }
 
-
     public function getSymptoms($patientName)
     {
         $sql = "SELECT * FROM patientInfo WHERE patientName='$patientName'";
@@ -30,9 +29,8 @@ class Model extends Dbh {
         $sql = "INSERT INTO treatementSummaries (patientName, doctorName, fileName) VALUES (?, ?, ?)";
         $stmt=$this->connect()->prepare($sql);
         
-        return $stmt->execute([$patientName, $doctorName,$filename]);
+        return $stmt->execute([$patientName, $doctorName,$fileName]);
     }
-
     public function addImage($image,$type,$user_id,$submission_id){
         $sql = "INSERT INTO images(user_id,submission_id,image,image_type) VALUES(?,?,?,?)";
         $stmt=$this->connect()->prepare($sql);
@@ -45,7 +43,7 @@ class Model extends Dbh {
         $stmt->execute([$user_id,$description]);
         $sql="SELECT max(submission_id) as max_id FROM submissions";
         $stmt=$this->connect()->query($sql);
-        $results=$stmt->fetch();
+        $results=$stmt->fetch(PDO::FETCH_ASSOC);
         $last_id=$results['max_id'];
         return $last_id;
     }

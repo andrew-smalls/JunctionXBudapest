@@ -15,7 +15,7 @@ if(isset($_POST["submit"]))
 {
   $filename = $_FILES['fileToUpload']['name'];
   $file = $_FILES['fileToUpload']['tmp_name'];
- 
+
   $fileSize = $_FILES['fileToUpload']['size'];
   $fileSizeInMB = ($fileSize)/(1024*1024);
   if($fileSizeInMB > 5)
@@ -24,7 +24,7 @@ if(isset($_POST["submit"]))
      $uploadOk = 0;
   }
 
-  $info = pathinfo($_FILES['fileToUpload']['name']);
+  $info = pathinfo($_FILES['fileToUpload']['tmp_name']);
   $ext = $info['extension']; // get the extension of the file
   $newname = "newname.".$ext; 
   $target = '../uploads/'.$newname;

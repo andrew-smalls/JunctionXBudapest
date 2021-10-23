@@ -15,4 +15,20 @@ class Model extends Dbh {
         return $results;
     }
 
+    public function addImage($image,$type,$user_id,$submission_id){
+        $sql = "INSERT INTO images(user_id,submission_id,image,image_type) VALUES(?,?,?,?)";
+        $stmt=$this->connect()->prepare($sql);
+        return $stmt->execute([$user_id,$submission_id,$image,$type]);
+    }
+
+    public function addSubmission($user_id,$description){
+        $sql = "INSERT INTO submissions(user_id,description) VALUES(?,?)";
+        $stmt=$this->connect()->prepare($sql);
+        $stmt->execute([$user_id,$description]);
+        $sql="SELECT max(submission_id) as max_id FROM submissions";
+        $stmt=$this->connect()->query($sql);
+        $results=$stmt->fetch();
+        $last_id=$results['max_id'];
+        return $last_id;
+    }
 }

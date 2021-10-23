@@ -12,7 +12,9 @@ use function PHPSTORM_META\type;
   <?php
 
   $view=new View();
-  $symptoms=$view->getSymptoms('andrei');
+  //$symptoms=$view->getSymptoms('andrei');
+  $submission=$view->getSubmissionById($_GET['sid']);
+  $user=$view->getUserById($_GET['uid']);
 
   
       ?>
@@ -22,7 +24,7 @@ use function PHPSTORM_META\type;
     <div class="col-md-2">
     </div>
     <div class="col-md-8" style="text-align: center;">
-      <h2>This symptom submission was completed by <?php print($_GET['uid']); ?></h2>
+      <h2>This symptom submission was completed by <?php print($user['first_name']); ?></h2>
     </div>
     <div class="col-md-2">
     </div>

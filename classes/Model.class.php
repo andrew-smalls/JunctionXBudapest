@@ -92,4 +92,10 @@ class Model extends Dbh {
         
         return var_dump($output);
     }
+
+    public function getSubmissionById($id){
+        $sql="SELECT * FROM submissions WHERE submission_id=".$id."";
+        $stmt=$this->connect()->query($sql);
+        return $stmt->fetch();
+    }
 }

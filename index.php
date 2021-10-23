@@ -29,7 +29,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="patient_home.php">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Features</a>
@@ -72,7 +72,7 @@
 
         for($i=0;$i<count($users);$i=$i+1){
             print '<tr>
-                <th scope="row">1</th>
+                <th scope="row">'.($i+1).'</th>
                     <td>'.$users[$i]['first_name'].'</td>
                     <td>'.$users[$i]['email'].'</td>
                     <td></td>

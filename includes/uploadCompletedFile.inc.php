@@ -4,21 +4,21 @@ include 'autoloader.inc.php';
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 
-
-
 $uploadOk = 1;
 $fileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
 $patientName = $_GET['patientName'];
 $doctorName = $_GET['doctorName'];
 
-// Check if image file is an actual file
 if(isset($_POST["submit"])) 
 {
   $filename = $_FILES['fileToUpload']['name'];
   $file = $_FILES['fileToUpload']['tmp_name'];
-  //echo $file;
-  //echo $filename;
+  $file_string = file_get_contents($_FILES['fileToUpload']['name']);
+  if(empty($file_string))
+  {
+    echo "mortii mei";
+  }
   $fileSize = $_FILES['fileToUpload']['size'];
   $fileSizeInMB = ($fileSize)/(1024*1024);
   if($fileSizeInMB > 5)
@@ -26,11 +26,12 @@ if(isset($_POST["submit"]))
      echo "File is not ok";
      $uploadOk = 0;
   }
-  else 
-  {
-    echo "File is ok";
-    $uploadOk = 1;
-  } 
+
+  $info = pathinfo($_FILES['fileToUpload']['name']);
+  $ext = $info['extension']; // get the extension of the file
+  $newname = "newname.".$ext; 
+  $target = 'uploads/'.$newname;
+  move_uploaded_file( $_FILES['fileToUpload']['tmp_name'], $target);
 }
 
 if($fileType != "docx" && $fileType != "doc" && $fileType != "pdf") 
@@ -42,14 +43,10 @@ if($fileType != "docx" && $fileType != "doc" && $fileType != "pdf")
 if ($uploadOk == 0) 
 {
     echo "Sorry, your file was not uploaded.";
-  // if everything is ok, try to upload file
 } 
+/*
 else 
 {
-  echo $file;
-    //if (move_uploaded_file($file, $target_file)) 
-    //{
-      
       $controller=new Controller();
       if($controller->uploadTreatmentSummary($patientName, $doctorName, $file))
       {
@@ -60,10 +57,5 @@ else
           header("Location: ../symptoms_doctorPOV.php?error");
         exit();
       }
-        
-    //}
-    //else 
-    //{
-    //  echo "Sorry, there was an error uploading your file.";
-    //}
 }
+*/

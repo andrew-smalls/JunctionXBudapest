@@ -17,11 +17,17 @@ class Controller extends Model{
         return $this->addSubmission($user_id,$description);
     }
 
+<<<<<<< HEAD
     protected function checkLogin($email,$password){
         return $this->confirmIdentity($email,$password);
     }
 
     protected function get_user_by_Id($user_id){
         return $this->getUserById($user_id);
+=======
+    public function parse_link($url, $keywords)
+    {
+        return $this->parseLink($url, $keywords);
+>>>>>>> 018bf95cd0a46a3c209eed6640760fbdf79a6b9d
     }
 }

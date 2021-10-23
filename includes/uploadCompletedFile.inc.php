@@ -1,5 +1,6 @@
 <?php
 include 'autoloader.inc.php';
+include '../header.html';  
 
 $target_dir = "uploads/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -14,8 +15,7 @@ if(isset($_POST["submit"]))
 {
   $filename = $_FILES['fileToUpload']['name'];
   $file = $_FILES['fileToUpload']['tmp_name'];
-  
-  
+
   $fileSize = $_FILES['fileToUpload']['size'];
   $fileSizeInMB = ($fileSize)/(1024*1024);
   if($fileSizeInMB > 5)
@@ -45,7 +45,7 @@ if ($uploadOk == 0)
 else 
 {
       $controller=new Controller();
-      if($controller->uploadTreatmentSummary($patientName, $doctorName, $file))
+      if($controller->uploadTreatmentSummary($patientName, $doctorName, $_FILES['fileToUpload']['name']))
       {
         header("Location: ../symptoms_doctorPOV.php?uid=".$doctorName."");
         exit();

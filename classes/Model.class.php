@@ -47,7 +47,7 @@ class Model extends Dbh {
 
     public function uploadTreatmentSummary($patientName, $doctorName, $fileName)
     {
-        $sql = "INSERT INTO treatementSummaries (patientName, doctorName, filename) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO treatementSummaries (patientName, doctorName, fileName) VALUES (?, ?, ?)";
         $stmt=$this->connect()->prepare($sql);
         
         return $stmt->execute([$patientName, $doctorName,$fileName]);
@@ -83,6 +83,13 @@ class Model extends Dbh {
         else{
             return false;
         }
+    }
 
+    public function parseLink($url, $keywords)
+    {
+        
+        exec("python inner/install_imports.py $url $keywords", $output);
+        
+        return var_dump($output);
     }
 }

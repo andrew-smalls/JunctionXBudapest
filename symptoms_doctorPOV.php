@@ -32,7 +32,21 @@ use function PHPSTORM_META\type;
   <div class='roundTreatmentSummary'>
       <p href="..."> See patient ASCO Treatment Summary and Survivorship Care plan</p>
   </div>  
-
+<div class="row" style="margin-left: 30px; text-align: center;" >
+  <div class="col-md-2">
+    </div>    
+  <div class="col-md-8" style="text-align: center;">
+    <div class="card" style="width: 400px;">
+      <div class="card-body">
+          <h5 class="card-title">Symptom description by patient</h5>
+          <?php print '<p class="card-text">"'.$submission['description'].'"</p>';?>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
 
 <div class='suggestestedResearchMaterials'> 
   <p>Suggested research papers:</p>

@@ -98,4 +98,10 @@ class Model extends Dbh {
         $stmt=$this->connect()->query($sql);
         return $stmt->fetch();
     }
+
+    public function getImagesBySubmissionId($id){
+        $sql="SELECT * FROM images WHERE submission_id=".$id."";
+        $stmt=$this->connect()->query($sql);
+        return $stmt->fetchAll();
+    }
 }

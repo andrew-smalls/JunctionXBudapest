@@ -13,9 +13,9 @@ use function PHPSTORM_META\type;
 
   $view=new View();
   //$symptoms=$view->getSymptoms('andrei');
+  
   $submission=$view->getSubmissionById($_GET['sid']);
   $user=$view->getUserById($_GET['uid']);
-
   
       ?>
       

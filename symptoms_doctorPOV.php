@@ -32,7 +32,20 @@ use function PHPSTORM_META\type;
   <div class='roundTreatmentSummary'>
       <p href="..."> See patient ASCO Treatment Summary and Survivorship Care plan</p>
   </div>  
-
+<div>
+  <p> Give keywords aici: </p>
+<form action='symptoms_doctorPOV.php' method='GET' >
+    <div class="form-group">
+        <label for="keywords" class="text-info">Add list of keywords (comma separated):</label><br>
+        <input type="text" name="keywords" id="keywords" class="form-control">
+        <?php print "
+        <input type='hidden' name='uid' value='".$_GET['uid']."' >
+        <input type='hidden' name='sid' value='".$_GET['sid']."' >
+        "; ?>
+    </div>
+    <button type='submit' name='keywordsButton'>Get suggestions</button>
+</form>
+</div>  
   <table class="table">
     <thead>
       <tr>
@@ -45,7 +58,11 @@ use function PHPSTORM_META\type;
     <tbody>
         <?php
           $search=new Search();
-          $keywords = 'lung cancer,throat soarness';
+          if(empty($_GET['keywords']))
+            $keywords='cancer';
+          else 
+            $keywords = $_GET['keywords'];
+            
           $results=$search->getResearchMaterials($keywords); //de pus keywords dinamic <td>'.$controller->parse_link($link, $keywords).'</td>
           
           $count=1;

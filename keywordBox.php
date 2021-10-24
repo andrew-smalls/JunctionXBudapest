@@ -1,30 +1,13 @@
-<?php
 
-print '
+
+
 <body>
-
-<label>Value: <input type="text" id="theValue"></label>
-<input type="button" id="setValue" value="Set">
-
-<script>
-    (function() 
-    {
-        var input = document.getElementById("theValue");
-        console.log(input);
-
-        if (localStorage && "theValue" in localStorage) 
-        {
-            input.value = localStorage.theValue;
-        }
-
-        document.getElementById("setValue").onclick = function () 
-        {
-            // Writing the value
-            localStorage && (localStorage.theValue = input.value);
-        };
-    })();
-
-</script>
+<form action='add_Keyword.php' method='POST' >
+    <div class="form-group">
+        <label for="keyword" class="text-info">Add Keyword:</label><br>
+        <input type="text" name="keyword" id="keyword" class="form-control">
+    </div>
+    <button type='submit' name='keywordButton'>Add</button>
+</form>
 
 </body>
-';

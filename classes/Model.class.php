@@ -95,7 +95,7 @@ class Model extends Dbh {
     }
 
     public function getSubmissionById($id){
-        $sql="SELECT * FROM submissions WHERE submission_id=".$id."";
+        $sql="SELECT * FROM submissions WHERE submission_id='.$id.'";
         $stmt=$this->connect()->query($sql);
         return $stmt->fetch();
     }
